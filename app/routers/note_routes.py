@@ -1,6 +1,6 @@
 from fastapi import HTTPException, Depends, APIRouter
 from sqlalchemy.orm import Session as DBSession
-from app.models.note import Session as NoteSession
+from app.models.database_init import Session as NoteSession
 from app.schemas.validation import Note
 from app.repos.note_crud import create_note, get_all_notes, get_note, update_note, delete_note
 

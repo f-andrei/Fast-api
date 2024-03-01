@@ -1,6 +1,6 @@
 from fastapi import HTTPException, Depends, APIRouter
 from sqlalchemy.orm import Session as DBSession
-from app.models.task import Session as TaskSession
+from app.models.database_init import Session as TaskSession
 from app.schemas.validation import Task
 from app.repos.task_crud import create_task, get_all_tasks, get_task, update_task, delete_task
 
