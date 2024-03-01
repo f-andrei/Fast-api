@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.models.note import Note
+from app.models.database_init import Note
 from app.schemas.validation import Note as PydanticNote
 
 

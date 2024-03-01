@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.models.task import Task
+from app.models.database_init import Task
 from app.schemas.validation import Task as PydanticTask
 
 
