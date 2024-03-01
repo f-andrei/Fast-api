@@ -7,7 +7,7 @@ from app.settings import DATABASE_URL
 engine = create_engine(DATABASE_URL)
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
-Base.metadata.create_all(engine)
+
 
 
 class Task(Base):
