@@ -2,8 +2,8 @@ import sys
 sys.path.insert(0, 'C:\\Programming\\Python\\Sandbox\\Fast-api')
 
 from fastapi import FastAPI
-from note_routes import note_router
-from task_routes import task_router
+from app.routers.note_routes import note_router
+from app.routers.task_routes import task_router
 
 
 app = FastAPI()
