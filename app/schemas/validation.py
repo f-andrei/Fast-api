@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class Task(BaseModel):
     name: str
     description: str
-    links: Optional[str]
+    links: Optional[str] = None
     start_date: datetime
     time: time
     duration: float
@@ -16,6 +16,6 @@ class Task(BaseModel):
 class Note(BaseModel):
     name: str
     description: str
-    links: Optional[str]
+    links: Optional[str] = None
     created_at: datetime
     user_id: str
