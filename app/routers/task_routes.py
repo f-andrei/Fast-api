@@ -34,7 +34,7 @@ def get_task_endpoint(task_id: int, db: DBSession = Depends(get_db)):
     
 
 @task_router.get("/task/get_all_tasks/{user_id}")
-def get_task_endpoint(user_id: int, db: DBSession = Depends(get_db)):
+def get_task_endpoint(user_id: str, db: DBSession = Depends(get_db)):
     try:
         return get_all_tasks(session=db, user_id=user_id)
     except Exception as e:
