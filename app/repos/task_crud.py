@@ -17,7 +17,7 @@ def create_task(session: Session, task_data: PydanticTask): # type: ignore
 def get_task(session: Session, task_id: int): # type: ignore
     return session.query(Task).filter(Task.id == task_id).first()
 
-def get_all_tasks(session: Session, user_id: int): # type: ignore
+def get_all_tasks(session: Session, user_id: str): # type: ignore
     return session.query(Task).filter(Task.user_id == user_id).all()
 
 def update_task(session: Session, task_id: int, task_data: PydanticTask): # type: ignore
