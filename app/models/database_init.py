@@ -20,7 +20,7 @@ class Task(Base):
     start_date = Column(Date)
     time = Column(Time)
     duration = Column(Float)
-    user_id = Column(Integer)
+    user_id = Column(String)
 
     def __repr__(self) -> str:
         return (
@@ -45,7 +45,7 @@ class Note(Base):
     description = Column(String)
     links = Column(String)
     created_at = Column(DateTime)
-    user_id = Column(Integer)
+    user_id = Column(String)
 
     def __repr__(self) -> str:
         return (
