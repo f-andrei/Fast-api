@@ -10,7 +10,7 @@ class Task(BaseModel):
     start_date: datetime
     time: time
     duration: float
-    user_id: int
+    user_id: str
 
 
 class Note(BaseModel):
@@ -18,4 +18,4 @@ class Note(BaseModel):
     description: str
     links: Optional[str]
     created_at: datetime
-    user_id: int
+    user_id: str
