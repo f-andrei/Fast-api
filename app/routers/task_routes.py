@@ -1,8 +1,9 @@
+from typing import List
 from fastapi import HTTPException, Depends, APIRouter
 from sqlalchemy.orm import Session as DBSession
 from app.models.database_init import Session as TaskSession
-from app.schemas.validation import Task
-from app.repos.task_crud import create_task, get_all_tasks, get_task, update_task, delete_task
+from app.schemas.validation import Task, RepeatDays
+from app.repos.task_crud import create_task, get_all_tasks, get_task, update_task, delete_task, add_repeat_days, get_repeat_days
 
 task_router = APIRouter()
 
@@ -66,3 +67,22 @@ def delete_task_endpoint(task_id: int, db: DBSession = Depends(get_db)):
         print(e)
         db.rollback()
         raise HTTPException(status_code=500, detail="Internal Server Error")
+    
+
+@task_router.post("/task/add_repeat_days/{task_id}")
+def add_repeat_days_endpoint(repeat_days: List[int], task_id: int, db: DBSession = Depends(get_db)):
+    try: 
+        return add_repeat_days(session=db, task_id=task_id, repeat_days=repeat_days)
+    except Exception as e:
+        print(e)
+        db.rollback()
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+    
+@task_router.get("/task/get_repeat_days/{task_id}")
+def get_repeat_days_endpoint(task_id: int, db: DBSession = Depends(get_db)):
+    try:
+        return get_repeat_days(session=db, task_id=task_id)
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+        
