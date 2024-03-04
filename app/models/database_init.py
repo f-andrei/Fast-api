@@ -11,7 +11,7 @@ Base = declarative_base()
 
 
 class Task(Base):
-    __tablename__ = 'task'
+    __tablename__ = "task"
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
@@ -37,8 +37,25 @@ class Task(Base):
         )
     
 
+class RepeatDays(Base):
+    __tablename__ = "repeat_days"
+    
+    id = Column(Integer, primary_key=True)
+    task_id = Column(Integer)
+    day_number = Column(Integer)
+
+    def __repr__(self) -> str:
+        return (
+            f"<RepeatDays("
+            f"id={self.id}, "
+            f"task_id='{self.task_id}', "
+            f"day_number'{self.day_number}"
+            f")>"
+        )
+
+
 class Note(Base):
-    __tablename__ = 'note'
+    __tablename__ = "note"
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
