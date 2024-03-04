@@ -1,5 +1,5 @@
 from datetime import datetime, time
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel
 
 
@@ -11,6 +11,11 @@ class Task(BaseModel):
     time: time
     duration: float
     user_id: str
+
+
+class RepeatDays(BaseModel):
+    task_id: int
+    day_number: List[int]
 
 
 class Note(BaseModel):
