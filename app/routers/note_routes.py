@@ -34,7 +34,7 @@ def get_note_endpoint(note_id: int, db: DBSession = Depends(get_db)):
 
 
 @note_router.get("/note/get_all_notes/{user_id}")
-def get_note_endpoint(user_id: int, db: DBSession = Depends(get_db)):
+def get_note_endpoint(user_id: str, db: DBSession = Depends(get_db)):
     try:
         return get_all_notes(session=db, user_id=user_id)
     except Exception as e:
