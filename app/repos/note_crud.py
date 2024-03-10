@@ -3,7 +3,7 @@ from app.models.database_init import Note
 from app.schemas.validation import Note as PydanticNote
 
 
-def create_note(session: Session, note_data: PydanticNote): # type: ignore
+def create_note(note_data: PydanticNote, session: Session): # type: ignore
     validated_data = note_data.model_dump()
 
     new_note = Note(**validated_data)
@@ -14,13 +14,16 @@ def create_note(session: Session, note_data: PydanticNote): # type: ignore
 
     return new_note
 
-def get_note(session: Session, note_id: int): # type: ignore
+
+def get_note(note_id: int, session: Session): # type: ignore
     return session.query(Note).filter(Note.id == note_id).first()
 
-def get_all_notes(session: Session, user_id: str): # type: ignore
+
+def get_all_notes(user_id: str, session: Session): # type: ignore
     return session.query(Note).filter(Note.user_id == user_id).all()
 
-def update_note(session: Session, note_id: int, note_data: PydanticNote): # type: ignore
+
+def update_note(note_data: PydanticNote, note_id: int, session: Session): # type: ignore
     note = session.query(Note).filter(Note.id == note_id).first()
     if note:
         for field, value in note_data.items():
@@ -30,7 +33,8 @@ def update_note(session: Session, note_id: int, note_data: PydanticNote): # type
         return note
     return None
 
-def delete_note(session: Session, note_id: int): # type: ignore
+
+def delete_note(note_id: int, session: Session): # type: ignore
     note = session.query(Note).filter(Note.id == note_id).first()
     if note:
         session.delete(note)

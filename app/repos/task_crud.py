@@ -2,10 +2,10 @@ from typing import List
 from sqlalchemy.orm import Session
 from app.models.database_init import Task, RepeatDays
 from app.schemas.validation import Task as PydanticTask
-from app.schemas.validation import RepeatDays as PydanticRepeatDays
+from datetime import datetime, time
+from sqlalchemy import and_
 
-
-def create_task(session: Session, task_data: PydanticTask): # type: ignore
+def create_task(task_data: PydanticTask, session: Session): # type: ignore
     validated_data = task_data.model_dump()
 
     new_task = Task(**validated_data)
@@ -16,13 +16,16 @@ def create_task(session: Session, task_data: PydanticTask): # type: ignore
 
     return new_task
 
-def get_task(session: Session, task_id: int): # type: ignore
+
+def get_task(task_id: int, session: Session): # type: ignore
     return session.query(Task).filter(Task.id == task_id).first()
 
-def get_all_tasks(session: Session, user_id: str): # type: ignore
+
+def get_all_tasks(user_id: str, session: Session): # type: ignore
     return session.query(Task).filter(Task.user_id == user_id).all()
 
-def update_task(session: Session, task_id: int, task_data: PydanticTask): # type: ignore
+
+def update_task(task_data: PydanticTask, task_id: int, session: Session): # type: ignore
     task = session.query(Task).filter(Task.id == task_id).first()
     if task:
         # Update only the provided fields
@@ -33,7 +36,8 @@ def update_task(session: Session, task_id: int, task_data: PydanticTask): # type
         return task
     return None
 
-def delete_task(session: Session, task_id: int): # type: ignore
+
+def delete_task(task_id: int, session: Session): # type: ignore
     task = session.query(Task).filter(Task.id == task_id).first()
     if task:
         session.delete(task)
@@ -41,7 +45,8 @@ def delete_task(session: Session, task_id: int): # type: ignore
         return True
     return False
 
-def add_repeat_days(session: Session, task_id: int, repeat_days: List[int]):
+
+def add_repeat_days(repeat_days: List[int], task_id: int, session: Session):
     try:
         task = session.query(Task).filter(Task.id == task_id).first()
         if not task:
@@ -57,5 +62,21 @@ def add_repeat_days(session: Session, task_id: int, repeat_days: List[int]):
         return False
     
 
-def get_repeat_days(session: Session, task_id: int):
+def get_repeat_days(task_id: int, session: Session):
     return session.query(RepeatDays).filter(RepeatDays.task_id == task_id).all()
+
+
+def get_due_tasks(start_time: time, end_time: time, session: Session):
+    current_day_number = datetime.now().weekday()
+    return session.query(Task).join(RepeatDays, Task.id == RepeatDays.task_id).filter(
+        and_(
+            Task.time >= start_time,
+            Task.time <= end_time,
+            RepeatDays.day_number == current_day_number
+        )
+    ).all()
+
+
+
+    
+
