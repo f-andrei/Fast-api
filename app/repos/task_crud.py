@@ -2,7 +2,8 @@ from typing import List
 from sqlalchemy.orm import Session
 from app.models.database_init import Task, RepeatDays
 from app.schemas.validation import Task as PydanticTask
-
+from datetime import datetime, time
+from sqlalchemy import and_
 
 def create_task(task_data: PydanticTask, session: Session): # type: ignore
     validated_data = task_data.model_dump()
@@ -65,6 +66,18 @@ def get_repeat_days(task_id: int, session: Session):
     return session.query(RepeatDays).filter(RepeatDays.task_id == task_id).all()
 
 
-def get_due_tasks(user_id: str, session: Session):
-    return session.query(Task).filter(user_id).all()
+def get_due_tasks(user_id: str, start_time: time, end_time: time, session: Session):
+    current_day_number = datetime.now().weekday()
+    return session.query(Task).join(RepeatDays, Task.id == RepeatDays.task_id).filter(
+        Task.user_id == user_id,
+        and_(
+            Task.time >= start_time,
+            Task.time <= end_time,
+            RepeatDays.day_number == current_day_number
+        )
+    ).all()
+
+
+
+    
 
