@@ -66,10 +66,9 @@ def get_repeat_days(task_id: int, session: Session):
     return session.query(RepeatDays).filter(RepeatDays.task_id == task_id).all()
 
 
-def get_due_tasks(user_id: str, start_time: time, end_time: time, session: Session):
+def get_due_tasks(start_time: time, end_time: time, session: Session):
     current_day_number = datetime.now().weekday()
     return session.query(Task).join(RepeatDays, Task.id == RepeatDays.task_id).filter(
-        Task.user_id == user_id,
         and_(
             Task.time >= start_time,
             Task.time <= end_time,

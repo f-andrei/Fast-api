@@ -92,11 +92,11 @@ def get_repeat_days_endpoint(task_id: int, db: DBSession=Depends(get_db)):
         raise HTTPException(status_code=500, detail="Internal Server Error")
         
 
-@task_router.get("/task/get_due_tasks/{user_id}")
-def get_due_tasks_endpoint(user_id: str, db: DBSession=Depends(get_db)):
+@task_router.get("/task/get_due_tasks")
+def get_due_tasks_endpoint(db: DBSession=Depends(get_db)):
     try:
         start_time_range, end_time_range = time_range()
-        return get_due_tasks(user_id=user_id, start_time=start_time_range, end_time=end_time_range, session=db)
+        return get_due_tasks(start_time=start_time_range, end_time=end_time_range, session=db)
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
