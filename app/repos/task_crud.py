@@ -74,7 +74,7 @@ def get_due_tasks(start_time: time, end_time: time, session: Session):
             Task.time <= end_time,
             RepeatDays.day_number == current_day_number
         )
-    ).all()
+    ).order_by(Task.time).all()
 
 
 
