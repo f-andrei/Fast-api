@@ -76,7 +76,3 @@ def get_due_tasks(start_time: time, end_time: time, session: Session):
         )
     ).all()
 
-
-
-    
-

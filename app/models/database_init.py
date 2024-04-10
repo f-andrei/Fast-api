@@ -75,3 +75,22 @@ class Note(Base):
             f"user_id={self.user_id}"
             f")>"
         )
+    
+
+class User(Base):
+    __tablename__ = "user"
+
+    id = Column(String, primary_key=True)
+    username = Column(String)
+    channel_id = Column(Integer)
+    server_id = Column(String)
+
+    def __repr__(self) -> str:
+        return (
+            f"<User("
+            f"id={self.id}"
+            f"username={self.username}"
+            f"channel_id={self.channel_id}"
+            f"server_id={self.server_id}"
+            f")>"
+        )

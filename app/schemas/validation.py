@@ -24,3 +24,10 @@ class Note(BaseModel):
     links: Optional[str] = None
     created_at: datetime
     user_id: str
+
+
+class User(BaseModel):
+    id: str
+    username: str
+    channel_id: int
+    server_id: str
