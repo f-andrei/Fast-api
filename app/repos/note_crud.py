@@ -20,7 +20,7 @@ def get_note(note_id: int, session: Session): # type: ignore
 
 
 def get_all_notes(user_id: str, session: Session): # type: ignore
-    return session.query(Note).filter(Note.user_id == user_id).all()
+    return session.query(Note).filter(Note.user_id == user_id).order_by(Note.created_at).all()
 
 
 def update_note(note_data: PydanticNote, note_id: int, session: Session): # type: ignore

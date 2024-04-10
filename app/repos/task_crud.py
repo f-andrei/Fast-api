@@ -22,7 +22,7 @@ def get_task(task_id: int, session: Session): # type: ignore
 
 
 def get_all_tasks(user_id: str, session: Session): # type: ignore
-    return session.query(Task).filter(Task.user_id == user_id).all()
+    return session.query(Task).filter(Task.user_id == user_id).order_by(Task.time).all()
 
 
 def update_task(task_data: PydanticTask, task_id: int, session: Session): # type: ignore
