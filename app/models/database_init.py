@@ -82,7 +82,7 @@ class User(Base):
 
     id = Column(String, primary_key=True)
     username = Column(String)
-    channel_id = Column(Integer)
+    channel_id = Column(String)
     server_id = Column(String)
 
     def __repr__(self) -> str:

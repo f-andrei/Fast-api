@@ -36,5 +36,5 @@ class Note(BaseModel):
 class User(BaseModel):
     id: str
     username: str
-    channel_id: int
+    channel_id: str
     server_id: str
