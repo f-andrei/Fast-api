@@ -26,6 +26,7 @@ class User:
     USER_CREATE_USER = "user/create_user"
     USER_GET_USER = "user/get_user"
     USER_UPDATE_DISCORD_USER = "user/update_username"
+    USER_GET_CHANNEL_ID = "user/get_channel_id"
     USER_UPDATE_PREFERRED_CHANNEL = "user/update_channel_id"
 
     def __init__(self, api_url):
@@ -48,6 +49,11 @@ class User:
         response = requests.put(url)
         return response.json()
     
+    def get_channel_id(self, user_id: str):
+        url = "{}/{}/{}".format(self.api_url, self.USER_GET_CHANNEL_ID, user_id)
+        response = requests.get(url)
+        return response.json()
+    
     def update_channel_id(self, channel_id: int, user_id: str):
         url = "{}/{}/{}/{}".format(self.api_url, self.USER_UPDATE_PREFERRED_CHANNEL, user_id, channel_id)
         response = requests.put(url)
@@ -58,6 +64,7 @@ if __name__ == "__main__":
 
     #response = user.create_user(create_task_data)
     #response = user.get_user(user_id="1231312312431")
-    response = user.update_username(username=put_discord_user, user_id=get_user_id)
+    #response = user.update_username(username=put_discord_user, user_id=get_user_id)
     #response = user.update_channel_id(channel_id=put_discord_channel, user_id=get_user_id)
+    response = user.get_channel_id(user_id=get_user_id)
     print(response)
